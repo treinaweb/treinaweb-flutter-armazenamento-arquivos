@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lifepet_app/models/pet_model.dart';
+import 'package:lifepet_app/screens/form_cadastro_consulta/form_cadastro_consulta_screen.dart';
 import 'package:lifepet_app/screens/perfil_pet/perfil_pet_screen.dart';
 import 'package:lifepet_app/screens/remedio_pet/remedio_pet_screen.dart';
 
@@ -97,6 +98,11 @@ class _CustomNavbarState extends State<CustomNavbar> {
                     setState(() {
                       widget.paginaAberta = 2;
                     });
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (_) => FormCadastroConsultaScreen(id: widget.pet.id,),
+                      ),
+                    );
                   },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
