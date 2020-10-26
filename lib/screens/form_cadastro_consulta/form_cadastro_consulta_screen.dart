@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lifepet_app/models/consulta_model.dart';
 import 'package:lifepet_app/models/pet_model.dart';
+import 'package:lifepet_app/services/consulta_service.dart';
 import 'package:lifepet_app/services/pet_service.dart';
 
 class FormCadastroConsultaScreen extends StatefulWidget {
@@ -15,6 +17,7 @@ class _FormCadastroConsultaScreenState extends State<FormCadastroConsultaScreen>
   final _tituloController = TextEditingController();
   final _dataController = TextEditingController();
   final PetService petService = PetService();
+  final ConsultaService cs = ConsultaService();
   Pet pet;
   Future<Pet> _loadPet;
   DateTime selectedDate = DateTime.now();
@@ -66,7 +69,15 @@ class _FormCadastroConsultaScreenState extends State<FormCadastroConsultaScreen>
                           height: 40,
                           width: double.infinity,
                           child: RaisedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Consulta novaConsulta = Consulta(
+                                titulo: _tituloController.text,
+                                data: selectedDate.toString(),
+                                pet: pet.id.toString()
+                              );
+                              cs.addConsulta(novaConsulta);
+
+                            },
                             color: Colors.redAccent,
                             child: Text(
                               "Cadastrar",
@@ -80,6 +91,10 @@ class _FormCadastroConsultaScreenState extends State<FormCadastroConsultaScreen>
                 ),
               ),
             ),
+          );
+        } else {
+          return Center(
+            child: CircularProgressIndicator(),
           );
         }
       },
