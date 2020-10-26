@@ -15,4 +15,9 @@ class FileUtil {
     final file = await getFile(entidade);
     file.writeAsString(data + '\n', mode: FileMode.append);
   }
+
+  static Future<List<String>> getData(String entidade) async {
+    final file = await getFile(entidade);
+    return file.readAsLines();
+  }
 }
