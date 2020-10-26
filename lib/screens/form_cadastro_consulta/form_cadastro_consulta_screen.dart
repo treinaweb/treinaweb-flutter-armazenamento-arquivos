@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lifepet_app/models/consulta_model.dart';
 import 'package:lifepet_app/models/pet_model.dart';
+import 'package:lifepet_app/screens/consulta_pet/consulta_pet_screen.dart';
 import 'package:lifepet_app/services/consulta_service.dart';
 import 'package:lifepet_app/services/pet_service.dart';
 
@@ -76,6 +77,11 @@ class _FormCadastroConsultaScreenState extends State<FormCadastroConsultaScreen>
                                 pet: pet.id.toString()
                               );
                               cs.addConsulta(novaConsulta);
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) => ConsultaPetScreen(id: widget.id,),
+                                ),
+                              );
 
                             },
                             color: Colors.redAccent,
