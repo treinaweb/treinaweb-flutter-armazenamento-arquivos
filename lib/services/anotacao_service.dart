@@ -8,6 +8,7 @@ class AnotacaoService {
   Random random = new Random();
   List<Anotacao> _anotacaoList = [];
   List<Anotacao> _anotacaoPet = [];
+  int indexRemover;
 
 
   void addAnotacao(Anotacao anotacao){
@@ -16,9 +17,18 @@ class AnotacaoService {
 
   Future<List> getAnotacoesPet(String id) async {
     final dataList = await FileUtil.getData("anotacao");
-    _anotacaoList = dataList.map((anotacaos) => Anotacao.fromJson(jsonDecode(anotacaos))).toList();
+    _anotacaoList = dataList.map((anotacaos) =>
+        Anotacao.fromJson(jsonDecode(anotacaos))).toList();
     _anotacaoPet = _anotacaoList.where((anotacao) => anotacao.pet == id).toList();
     return _anotacaoPet;
+  }
+
+  Future<void> removeAnotacaoPet(String id) async {
+    final dataList = await FileUtil.getData("anotacao");
+    _anotacaoList = dataList.map((anotacaos) =>
+        Anotacao.fromJson(jsonDecode(anotacaos))).toList();
+    indexRemover = _anotacaoList.indexWhere((anotacao) => anotacao.id == id);
+    FileUtil.removeData("anotacao", indexRemover);
   }
 
 

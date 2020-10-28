@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lifepet_app/models/anotacao_model.dart';
+import 'package:lifepet_app/screens/perfil_pet/perfil_pet_screen.dart';
+import 'package:lifepet_app/services/anotacao_service.dart';
 
 Widget anotacaoCard(BuildContext context, int index, Anotacao anotacao) {
   return GestureDetector(
@@ -35,6 +37,7 @@ Widget anotacaoCard(BuildContext context, int index, Anotacao anotacao) {
 }
 
 void _exibirDialog(BuildContext context, Anotacao anotacao) {
+  AnotacaoService anotacaoService = AnotacaoService();
   Widget cancelaButton = FlatButton(
     child: Text("Cancelar"),
     onPressed: () {
@@ -44,6 +47,12 @@ void _exibirDialog(BuildContext context, Anotacao anotacao) {
   Widget removerButton = FlatButton(
     child: Text("Remover"),
     onPressed: () {
+      anotacaoService.removeAnotacaoPet(anotacao.id);
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (_) => PerfilPetScreen(id: int.parse(anotacao.pet),),
+        ),
+      );
     },
   );
   AlertDialog alert = AlertDialog(

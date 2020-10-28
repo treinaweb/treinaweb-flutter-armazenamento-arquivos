@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lifepet_app/models/consulta_model.dart';
 import 'package:lifepet_app/models/pet_model.dart';
 import 'package:lifepet_app/screens/components/custom_navbar.dart';
-import 'package:lifepet_app/screens/consulta_pet/components/remedio_card.dart';
+import 'package:lifepet_app/screens/consulta_pet/components/consulta_card.dart';
 import 'package:lifepet_app/screens/form_cadastro_consulta/form_cadastro_consulta_screen.dart';
 import 'package:lifepet_app/screens/form_cadastro_remedio/form_cadastro_remedio_screen.dart';
 import 'package:lifepet_app/services/consulta_service.dart';
