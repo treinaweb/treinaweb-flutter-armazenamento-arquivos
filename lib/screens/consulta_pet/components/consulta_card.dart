@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:lifepet_app/models/consulta_model.dart';
 import 'package:lifepet_app/models/remedio_model.dart';
+import 'package:lifepet_app/screens/perfil_pet/perfil_pet_screen.dart';
+import 'package:lifepet_app/services/consulta_service.dart';
 
 Widget consultaCard(BuildContext context, int index, Consulta consulta) {
-  return Card(
+  return GestureDetector(
+    onTap: () {
+      _exibirDialog(context, consulta);
+    },
+    child: Card(
     elevation: 8.0,
     margin: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
     child: Container(
@@ -27,5 +33,42 @@ Widget consultaCard(BuildContext context, int index, Consulta consulta) {
         ),
       ),
     ),
+  )
+  );
+}
+
+void _exibirDialog(BuildContext context, Consulta consulta) {
+  ConsultaService consultaService = ConsultaService();
+  Widget cancelaButton = FlatButton(
+    child: Text("Cancelar"),
+    onPressed:  () {
+      Navigator.of(context).pop();
+    },
+  );
+  Widget removerButton = FlatButton(
+    child: Text("Remover"),
+    onPressed:  () {
+      consultaService.removeConsultaPet(consulta.id);
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (_) =>
+              PerfilPetScreen(id: int.parse(consulta.pet),),
+        ),
+      );
+    },
+  );
+  AlertDialog alert = AlertDialog(
+    title: Text("Remover consulta"),
+    content: Text("Deseja remover a consulta?"),
+    actions: [
+      cancelaButton,
+      removerButton,
+    ],
+  );
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
   );
 }
